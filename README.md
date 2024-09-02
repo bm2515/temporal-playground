@@ -21,13 +21,6 @@ python3 -m venv env
 source env/bin/activate
 ```
 
-On Windows, run these commands:
-
-```
-python -m venv env
-env\Scripts\activate
-```
-
 With the virtual environment configured, install the Temporal SDK:
 
 ```
@@ -40,7 +33,7 @@ Set up a local Temporal Service for development with Temporal CLI:
 brew install temporal
 ```
 
-Once you've installed Temporal CLU and added it to your PATH, open a new terminal window and run:
+Once you've installed Temporal CLI and added it to your PATH, open a new terminal window and run:
 
 ```
 temporal server start-dev
@@ -62,13 +55,6 @@ On macOS or Linux, run this command:
 ```
 source env/bin/activate
 ```
-
-On Windows, run this command:
-
-```
-env\Scripts\activate
-```
-
 
 Then run the worker:
 
