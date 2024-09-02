@@ -2,17 +2,16 @@
 
 ## Original Repository
 
-This repository is originally forked from [Temporal Money Transfer Example]https://github.com/temporalio/money-transfer-project-template-python).
+This repository is originally forked from [Temporal Money Transfer Example](https://github.com/temporalio/money-transfer-project-template-python).
 
 
-To use this code, make sure you have a [Temporal Cluster running](https://docs.temporal.io/docs/server/quick-install/) first.
-
+To use this code, make sure you have a [Temporal Cluster running](https://learn.temporal.io/getting_started/python/dev_environment/) first.
 
 Clone this repo and run this application.
 
 ```bash
-git clone https://github.com/temporalio/money-transfer-project-template-python
-cd money-transfer-project-template-python
+git clone https://github.com/bm2515/temporal-playground.git
+cd temporal-playground
 ```
 
 Create a virtual environment and activate it. On macOS and Linux, run these commands:
@@ -35,6 +34,20 @@ With the virtual environment configured, install the Temporal SDK:
 python -m pip install temporalio
 ```
 
+Set up a local Temporal Service for development with Temporal CLI:
+
+```
+brew install temporal
+```
+
+Once you've installed Temporal CLU and added it to your PATH, open a new terminal window and run:
+
+```
+temporal server start-dev
+```
+
+The Temporal Service will be available on localhost:7233.
+The Temporal Web UI will be available at http://localhost:8233.
 
 Run the workflow:
 
