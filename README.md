@@ -1,6 +1,9 @@
-# Temporal Money Transfer Python Project Template
+# Temporal Example Python Project
 
-This is the code to support the tutorial at https://learn.temporal.io/getting_started/python/first_program_in_python/
+## Original Repository
+
+This repository is originally forked from [Temporal Money Transfer Example]https://github.com/temporalio/money-transfer-project-template-python).
+
 
 To use this code, make sure you have a [Temporal Cluster running](https://docs.temporal.io/docs/server/quick-install/) first.
 
