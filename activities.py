@@ -1,63 +1,59 @@
-# @@@SNIPSTART python-money-transfer-project-template-withdraw
 import asyncio
 
 from temporalio import activity
 
-from banking_service import BankingService, InvalidAccountError
-from shared import PaymentDetails
+from service import BankingService, InvalidAccountError, WalletService, InvalidWalletError
+from shared import (
+    TransferDetails,
+    RefundDetails
+)
 
 
-class BankingActivities:
+class WalletActivities:
     def __init__(self):
-        self.bank = BankingService("bank-api.example.com")
+        self.wallet = WalletService('wallet-api.example.noon.com')
 
     @activity.defn
-    async def withdraw(self, data: PaymentDetails) -> str:
+    async def withdraw(self, data: TransferDetails) -> str:
         reference_id = f"{data.reference_id}-withdrawal"
         try:
             confirmation = await asyncio.to_thread(
-                self.bank.withdraw, data.source_account, data.amount, reference_id
+                self.wallet.withdraw, data.wallet_id, data.amount, reference_id
             )
             return confirmation
-        except InvalidAccountError:
+        except InvalidWalletError:
             raise
         except Exception:
             activity.logger.exception("Withdrawal failed")
             raise
 
-    # @@@SNIPEND
-    # @@@SNIPSTART python-money-transfer-project-template-deposit
+
     @activity.defn
-    async def deposit(self, data: PaymentDetails) -> str:
+    async def deposit(self, data: TransferDetails) -> str:
+
         reference_id = f"{data.reference_id}-deposit"
         try:
             confirmation = await asyncio.to_thread(
-                self.bank.deposit, data.target_account, data.amount, reference_id
+                self.wallet.deposit, data.wallet_id, data.amount, reference_id
             )
-            """
-            confirmation = await asyncio.to_thread(
-                self.bank.deposit_that_fails,
-                data.target_account,
-                data.amount,
-                reference_id,
-            )
-            """
             return confirmation
-        except InvalidAccountError:
+        except InvalidWalletError:
             raise
         except Exception:
             activity.logger.exception("Deposit failed")
             raise
+    
 
-    # @@@SNIPEND
+class BankingActivities:
+    def __init__(self):
+        self.bank = BankingService('bank-api.example.noon.com')
 
-    # @@@SNIPSTART python-money-transfer-project-template-refund
     @activity.defn
-    async def refund(self, data: PaymentDetails) -> str:
+    async def refund(self, data: RefundDetails) -> str:
         reference_id = f"{data.reference_id}-refund"
         try:
             confirmation = await asyncio.to_thread(
-                self.bank.deposit, data.source_account, data.amount, reference_id
+                self.bank.refund_that_fails, data.account_number, data.amount, reference_id
             )
             return confirmation
         except InvalidAccountError:
@@ -65,5 +61,3 @@ class BankingActivities:
         except Exception:
             activity.logger.exception("Refund failed")
             raise
-
-    # @@@SNIPEND

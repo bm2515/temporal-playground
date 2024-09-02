@@ -1,7 +1,6 @@
-# @@@SNIPSTART python-money-transfer-project-template-shared
 from dataclasses import dataclass
 
-MONEY_TRANSFER_TASK_QUEUE_NAME = "TRANSFER_MONEY_TASK_QUEUE"
+REFUND_ORDER_TASK_QUEUE_NAME = "TRANSFER_MONEY_TASK_QUEUE"
 
 
 @dataclass
@@ -12,4 +11,20 @@ class PaymentDetails:
     reference_id: str
 
 
-# @@@SNIPEND
+@dataclass
+class OrderDetails:
+    order_id: str
+    user_id: int
+    amount: int
+
+@dataclass
+class TransferDetails:
+    wallet_id: int
+    amount: int
+    reference_id: int
+
+@dataclass
+class RefundDetails:
+    account_number: str
+    amount: int
+    reference_id: int
